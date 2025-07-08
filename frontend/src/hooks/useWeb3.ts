@@ -84,10 +84,13 @@ export function useWeb3() {
     if (!selectedEvent) return;
 
     try {
-      const timeRemaining = await web3Service.getTimeRemaining(
+      const timeRemainingSeconds = await web3Service.getTimeRemaining(
         selectedEvent.eventId
       );
-      setTimeRemaining(timeRemaining);
+      const formattedTime = web3Service.formatTimeRemaining(
+        parseInt(timeRemainingSeconds)
+      );
+      setTimeRemaining(formattedTime);
     } catch (error) {
       console.error("Error updating time remaining:", error);
     }
